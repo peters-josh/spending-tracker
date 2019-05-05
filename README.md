@@ -20,11 +20,11 @@ Copy the following [workbook](https://docs.google.com/spreadsheets/d/1o6o5-q1O2r
 ### Google Sheets API
 Head to the [Google API Console](https://console.developers.google.com). You should see a box that says "To view this page, select a project." Click the `create` button the right side. Give it a name and save. Click the `Credentials` tab on the left side. Select `Create credentials` > `Service account key`.
 
-Select `New service account` from the drop down. Give the service account a name, for the role enter `Project` > `Editor`. Keep `JSON` selected and create it. The credentials file will be automatically downloaded.  Rename this file `credentials.json` and move it to the application directory.
+Select `New service account` from the drop down. Give the service account a name, for the role enter `Project` > `Editor`. Keep `JSON` selected and create it. The credentials file will be automatically downloaded.  Rename this file `credentials.json` and move it to the this application's directory.
+
+Next, select `Manage service accounts`. Copy the email address of the service account you just created. Head back to the Sheets workbook you copied and share the document with the service account email. Make sure to give it access to edit.
 
 Go to the [Google Drive API](https://console.developers.google.com/apis/api/drive.googleapis.com/overview) and enable it for your project.
-
-Next, select `Manage service accounts`. Copy the email address of the service account you just created. Head back to the Sheets workbook you copied and share the document with the service account email.
 
 ## Deploy to Heroku 
 Create a free account on [Heroku](http://heroku.com/) if you don't already have one. [Download the Heroku CLI](https://devcenter.heroku.com/articles/getting-started-with-python#set-up).
@@ -43,12 +43,9 @@ Creating ⬢ my-app-name-here-api-heroku... done
 https://my-app-name-here-api-heroku.herokuapp.com/ | https://git.heroku.com/my-app-name-here-api-heroku.git
 ```
 
-Take note of the base URL for the application as well as the Heroku git repo it creates for you. To deploy your application, simply run
+Take note of the base URL for the application as well as the Heroku git repo it creates for you. 
 
-```
-git push heroku master
-```
-This deploys what ever is on the master branch in your fork to Heroku. However, we don't want to upload the `credentials.json` file to Github since that contains your Google account info. To fix this, we can create a local branch that contains `credentials.json` while your master does not. 
+By default, Heroku deploys what ever is on the origin master branch in your fork to Heroku. However, we don't want to upload the `credentials.json` file to Github since that contains your Google account info. To fix this, we can create a local branch that contains `credentials.json` while your master does not. 
 
 Create a new branch.
 
@@ -80,18 +77,20 @@ heroku logs
 ## Configure Email auto-forwarding & Zapier
 
 ### Set Up Zapier
-Login or create an account on [Zapier](https://zapier.com). Create a new zap. Set the "Trigger App" as email. Save and continue.  Set anything you want for your email address prefix. Copy this email and then head over to your email client, i.e. Gmail.
+Login or create an account on [Zapier](https://zapier.com). Create a new zap. Set the "Trigger App" as email. Save and continue.  Set anything you want for your email address prefix. Copy this email, click `Continue`, and then head over to your email client, i.e. Gmail.
 
 Send an email to your new email address with something in the subject and body. Head back to Zapier and once it receives your email, click `Pull in sample` and then `Continue`.  
 
 Now, we need to add an action to the Zap. Click the `Add a Step` button on the left side of the screen. Select `Action/Search`, search for `Webhooks`, and then select `POST`. 
 
-Enter your Heroku URL and change the Payload type to `Json`. Use the following key-value pairs for the Data section.
+Enter your Heroku URL + `/budget/api/email` at the end and change the Payload type to `Json`. Use the following key-value pairs for the Data section.
 
 ```
 body: Body Plain
 subject: Subject
 ```
+
+Make sure you are click the `+` button on the key entry and select `Body Plain` and `Subject`. You should see the text you entered for the body and subject in the test email you sent.
 
 Continue to the next step, send a test, and then finish. Turn the Zap on.
 
