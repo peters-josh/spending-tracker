@@ -12,7 +12,6 @@ def parse_email():
     body = payload["body"]
     subject = payload["subject"]
     sheet = Sheets()
-    # TODO delete once done
     print(repr(body))
 
     if "You paid" in subject:
