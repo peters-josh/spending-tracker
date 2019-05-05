@@ -24,7 +24,7 @@ Select `New service account` from the drop down. Give the service account a name
 
 Next, select `Manage service accounts`. Copy the email address of the service account you just created. Head back to the Sheets workbook you copied and share the document with the service account email. Make sure to give it access to edit.
 
-Go to the [Google Drive API](https://console.developers.google.com/apis/api/drive.googleapis.com/overview) and enable it for your project.
+Go to the [Google Sheets API](https://console.developers.google.com/apis/api/sheets.googleapis.com/overview) and enable it for your project.
 
 ## Deploy to Heroku 
 Create a free account on [Heroku](http://heroku.com/) if you don't already have one. [Download the Heroku CLI](https://devcenter.heroku.com/articles/getting-started-with-python#set-up).
